@@ -1,0 +1,131 @@
+<div class="main-container">
+  <p-toolbar>
+    <ng-template #start>
+      <p-button
+        icon="pi pi-arrow-left"
+        class="mr-2"
+        text
+        severity="secondary"
+        routerLink="/home"
+      />
+      <p-selectbutton
+        [(ngModel)]="situacao"
+        [options]="options"
+        optionValue="value"
+        (onChange)="onChangeSituacao()"
+      />
+    </ng-template>
+    <ng-template #center>
+      <p-iconfield iconPosition="left">
+        <p-inputicon styleClass="pi pi-search" />
+        <input
+          type="text"
+          pInputText
+          placeholder="Search"
+          (keyup)="onSearch()"
+          [(ngModel)]="search"
+        />
+      </p-iconfield>
+    </ng-template>
+    <ng-template #end>
+      <p-button severity="primary" (click)="onNew()" [outlined]="true">
+        <i class="pi pi-plus"></i>
+        Cadastrar novo produto
+      </p-button>
+    </ng-template>
+  </p-toolbar>
+  <p-card>
+    <ng-template #title>Gerenciamento de produtos </ng-template>
+    <ng-template #subtitle>Inclua, edite ou exclua produtos</ng-template>
+
+    <p-table
+      [value]="list"
+      [paginator]="true"
+      [rows]="5"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      size="small"
+      [styleClass]="'p-datatable-sm'"
+      scrollHeight="450px"
+      [sortOrder]="1"
+      [resizableColumns]="true"
+      columnResizeMode="expand"
+    >
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="descricao" pResizableColumn>
+            Descrição <p-sortIcon field="descricao" />
+          </th>
+          <th pSortableColumn="codigo" pResizableColumn>
+            Código <p-sortIcon field="codigo" />
+          </th>
+          <th pSortableColumn="situacao" pResizableColumn>
+            Situação <p-sortIcon field="situacao" />
+          </th>
+          <th style="width: 5%">Editar</th>
+          <th style="width: 5%">Excluir</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-obj>
+        <tr>
+          <td>{{ obj.descricao }}</td>
+          <td>{{ obj.codigo }}</td>
+          <td>
+            <div *ngIf="obj.situacao; else elseBlock">
+              <p-tag severity="info" value="Ativo" />
+            </div>
+            <ng-template #elseBlock
+              ><p-tag severity="danger" value="Inativo"
+            /></ng-template>
+          </td>
+          <td>
+            <p-button
+              severity="info"
+              (click)="onEdit(obj.idProdutos)"
+              [outlined]="true"
+            >
+              <i class="pi pi-pencil"></i
+            ></p-button>
+          </td>
+          <td>
+            <p-button
+              severity="danger"
+              (click)="onDelete($event, obj.idProdutos)"
+              [outlined]="true"
+            >
+              <i class="pi pi-trash"></i
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <ng-container *ngIf="loading">
+          <tr *ngFor="let obj of arraySkeleton" style="height: 46px">
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="!loading">
+          <tr>
+            <td colspan="5">Nenum registro encontrado.</td>
+          </tr>
+        </ng-container>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+  <p-confirmdialog />
+</div>

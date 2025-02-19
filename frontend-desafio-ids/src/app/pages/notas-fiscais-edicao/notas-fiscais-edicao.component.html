@@ -1,0 +1,65 @@
+<div class="main-container">
+  <p-toolbar>
+    <ng-template #start>
+      <p-button
+        icon="pi pi-arrow-left"
+        class="mr-2"
+        text
+        severity="secondary"
+        routerLink="/notas-fiscais-gerenciamento"
+      />
+    </ng-template>
+    <ng-template #center> Edição/Criação de notas fiscais </ng-template>
+    <ng-template #end> </ng-template>
+  </p-toolbar>
+
+  <p-card>
+    <ng-template #title>Dados da nota fiscal</ng-template>
+
+    <div [formGroup]="formGroup" class="row">
+      <div class="col-sm-4">
+        <app-input-text
+          label="Número da nota"
+          [frmGroup]="formGroup"
+          frmName="numeroNota"
+        ></app-input-text>
+      </div>
+
+      <div class="col-sm-4">
+        <app-input-currency
+          label="Valor total"
+          [frmGroup]="formGroup"
+          frmName="valorTotal"
+        >
+        </app-input-currency>
+      </div>
+
+      <div class="col-sm-4">
+        <app-input-date
+          label="Data de emissão"
+          [frmGroup]="formGroup"
+          frmName="dataEmissao"
+        >
+        </app-input-date>
+      </div>
+      <div class="col-sm-4">
+        <app-input-select
+          label="Fornecedor"
+          [frmGroup]="formGroup"
+          frmName="idFornecedor"
+          [options]="listFornecedores"
+        >
+        </app-input-select>
+      </div>
+    </div>
+    <p-card>
+      <ng-template #title>Itens da nota fiscal</ng-template>
+      <app-table-itens
+        [produtos]="listProdutos"
+        [itens]="itens"
+      ></app-table-itens>
+    </p-card>
+
+    <p-button severity="info" (click)="onSalvar()"> Salvar</p-button>
+  </p-card>
+</div>

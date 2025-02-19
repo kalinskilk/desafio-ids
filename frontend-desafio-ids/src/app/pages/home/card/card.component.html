@@ -1,0 +1,19 @@
+<p-card
+  class="text-center"
+  [routerLink]="link"
+  [style]="{
+    'background-color': color,
+    color: '#000000',
+    transform: 'translateY(-5px)',
+    'box-shadow': '0px 10px 20px rgba(0, 0, 0, 0.15)',
+    cursor: 'pointer',
+  }"
+>
+  <ng-template pTemplate="title">
+    <i class="{{ icon }} fs-2 text-white"></i>
+    {{ title }}
+  </ng-template>
+  <ng-template pTemplate="content">
+    <p>{{ description }}</p>
+  </ng-template>
+</p-card>

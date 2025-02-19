@@ -1,0 +1,9 @@
+<div class="flex flex-col gap-2" [formGroup]="frmGroup">
+  <label for="{{ label }}">{{ label }}</label>
+  <input
+    id="{{ frmName }}"
+    pInputText
+    [formControlName]="frmName"
+    [maxLength]="maxlength"
+  />
+</div>

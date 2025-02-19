@@ -32,8 +32,8 @@ services:
       - ~/.m2:/root/.m2
 
   frontend:
-    build: ./front-desafio-ids
-    container_name: front-desafio-ids
+    build: ./frontend-desafio-ids
+    container_name: frontend-desafio-ids
     ports:
       - "4200:80"
     depends_on:

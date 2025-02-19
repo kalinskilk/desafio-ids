@@ -1,0 +1,158 @@
+<div class="main-container">
+  <p-toolbar>
+    <ng-template #start>
+      <p-button
+        icon="pi pi-arrow-left"
+        class="mr-2"
+        text
+        severity="secondary"
+        routerLink="/home"
+      />
+      <p-selectbutton
+        [(ngModel)]="situacao"
+        [options]="options"
+        optionValue="value"
+        (onChange)="onChangeSituacao()"
+      />
+    </ng-template>
+    <ng-template #center>
+      <p-iconfield iconPosition="left">
+        <p-inputicon styleClass="pi pi-search" />
+        <input
+          type="text"
+          pInputText
+          placeholder="Search"
+          (keyup)="onSearch()"
+          [(ngModel)]="search"
+        />
+      </p-iconfield>
+    </ng-template>
+    <ng-template #end>
+      <p-button severity="primary" (click)="onNew()" [outlined]="true">
+        <i class="pi pi-plus"></i>
+        Cadastrar novo fornecedor
+      </p-button>
+    </ng-template>
+  </p-toolbar>
+  <p-card>
+    <ng-template #title>Gerenciamento de fornecedores </ng-template>
+    <ng-template #subtitle>Inclua, edite ou exclua fornecedores</ng-template>
+
+    <p-table
+      [value]="list"
+      [paginator]="true"
+      [rows]="5"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      size="small"
+      [styleClass]="'p-datatable-sm'"
+      scrollHeight="450px"
+      [sortOrder]="1"
+      [resizableColumns]="true"
+      columnResizeMode="expand"
+    >
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="razaoSocial" pResizableColumn>
+            Razão social <p-sortIcon field="razaoSocial" />
+          </th>
+          <th pSortableColumn="codigo" pResizableColumn>
+            Código <p-sortIcon field="codigo" />
+          </th>
+          <th pSortableColumn="cnpj" pResizableColumn>
+            CNPJ <p-sortIcon field="cnpj" />
+          </th>
+          <th pSortableColumn="telefone" pResizableColumn>
+            Telefone <p-sortIcon field="telefone" />
+          </th>
+          <th pSortableColumn="situacao" pResizableColumn>
+            Situação <p-sortIcon field="situacao" />
+          </th>
+          <th pSortableColumn="dataBaixa" pResizableColumn>
+            Data baixa <p-sortIcon field="dataBaixa" />
+          </th>
+          <th style="width: 5%">Editar</th>
+          <th style="width: 5%">Excluir</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-obj>
+        <tr>
+          <td>{{ obj.razaoSocial }}</td>
+          <td>{{ obj.codigo }}</td>
+          <td>{{ obj.cnpj | cnpjCpf }}</td>
+          <td>{{ obj.telefone | phoneBr }}</td>
+          <td>
+            <ng-container [ngSwitch]="obj.situacao">
+              <p-tag *ngSwitchCase="'Ativo'" severity="info" value="Ativo" />
+              <p-tag
+                *ngSwitchCase="'Baixado'"
+                severity="warn"
+                value="Baixado"
+              />
+              <p-tag
+                *ngSwitchCase="'Suspenso'"
+                severity="danger"
+                value="Suspenso"
+              />
+            </ng-container>
+          </td>
+          <td>{{ obj.dataBaixa | date: "dd/MM/yyyy" }}</td>
+          <td>
+            <p-button
+              severity="info"
+              (click)="onEdit(obj.idFornecedores)"
+              [outlined]="true"
+            >
+              <i class="pi pi-pencil"></i
+            ></p-button>
+          </td>
+          <td>
+            <p-button
+              severity="danger"
+              (click)="onDelete($event, obj.idFornecedores)"
+              [outlined]="true"
+            >
+              <i class="pi pi-trash"></i
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <ng-container *ngIf="loading">
+          <tr *ngFor="let obj of arraySkeleton" style="height: 46px">
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="!loading">
+          <tr>
+            <td colspan="5">Nenum registro encontrado.</td>
+          </tr>
+        </ng-container>
+      </ng-template>
+    </p-table>
+  </p-card>
+  <p-confirmdialog />
+</div>

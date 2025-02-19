@@ -1,0 +1,69 @@
+<p-table
+  [value]="itens"
+  [rows]="5"
+  [tableStyle]="{ 'min-width': '50rem', 'max-height': 'calc(100vh - 325px)' }"
+  size="small"
+  [styleClass]="'p-datatable-sm'"
+  scrollHeight="450px"
+  columnResizeMode="expand"
+>
+  <ng-template #header>
+    <tr>
+      <th>Produto</th>
+      <th>Valor unitário</th>
+      <th>Quantidade</th>
+      <th>Valor total do item</th>
+      <th style="width: 5%">Excluir</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-obj let-i="rowIndex">
+    <tr>
+      <td>
+        <p-select
+          [options]="produtos"
+          [(ngModel)]="obj.idProdutos"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Selecione um produto"
+          class="w-full md:w-56"
+          id="sel-produto-{{ i }}"
+          appendTo="body"
+          (onChange)="onSelectProduto(obj)"
+        />
+      </td>
+      <td>
+        <p-inputnumber
+          [(ngModel)]="obj.valorUnitario"
+          inputId="qnt-valorUnitario-{{ i }}"
+          mode="decimal"
+          locale="pt-BR"
+          [minFractionDigits]="2"
+        />
+      </td>
+      <td>
+        <p-inputnumber
+          [(ngModel)]="obj.quantidade"
+          inputId="qnt-valorUnitario-{{ i }}"
+          mode="decimal"
+          locale="pt-BR"
+          [minFractionDigits]="2"
+        />
+      </td>
+      <td>{{ obj.quantidade * obj.valorUnitario | currency: "BRL" }}</td>
+      <td>
+        <p-button severity="danger" (click)="onDelete(i)" [outlined]="true">
+          <i class="pi pi-trash"></i
+        ></p-button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="5">Nenhum registro informado.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<br />
+<br />
+<p-button severity="success" (click)="addProduto()"> Add produto</p-button>

@@ -1,0 +1,47 @@
+<div class="main-container">
+  <p-toolbar>
+    <ng-template #start>
+      <p-button
+        icon="pi pi-arrow-left"
+        class="mr-2"
+        text
+        severity="secondary"
+        routerLink="/produtos-gerenciamento"
+      />
+    </ng-template>
+    <ng-template #center> Edição/Criação de produtos </ng-template>
+    <ng-template #end> </ng-template>
+  </p-toolbar>
+
+  <p-card>
+    <ng-template #title>Dados do produto</ng-template>
+
+    <div [formGroup]="formGroup" class="row">
+      <div class="col-sm-4">
+        <app-input-text
+          label="Descrição"
+          [frmGroup]="formGroup"
+          frmName="descricao"
+        ></app-input-text>
+      </div>
+
+      <div class="col-sm-4">
+        <app-input-text
+          label="Código"
+          [frmGroup]="formGroup"
+          frmName="codigo"
+        ></app-input-text>
+      </div>
+
+      <div class="col-sm-4">
+        <app-toggle-switch
+          label="Ativo"
+          [frmGroup]="formGroup"
+          frmName="situacao"
+        ></app-toggle-switch>
+      </div>
+
+      <p-button severity="info" (click)="onSalvar()"> Salvar</p-button>
+    </div>
+  </p-card>
+</div>

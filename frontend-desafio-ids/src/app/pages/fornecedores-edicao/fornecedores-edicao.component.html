@@ -1,0 +1,77 @@
+<div class="main-container">
+  <p-toolbar>
+    <ng-template #start>
+      <p-button
+        icon="pi pi-arrow-left"
+        class="mr-2"
+        text
+        severity="secondary"
+        routerLink="/fornecedores-gerenciamento"
+      />
+    </ng-template>
+    <ng-template #center> Edição/Criação de fornecedores </ng-template>
+    <ng-template #end> </ng-template>
+  </p-toolbar>
+
+  <p-card>
+    <ng-template #title>Dados do produto</ng-template>
+
+    <div [formGroup]="formGroup" class="row">
+      <div class="col-sm-4">
+        <app-input-text
+          label="Código"
+          [frmGroup]="formGroup"
+          frmName="codigo"
+        ></app-input-text>
+      </div>
+
+      <div class="col-sm-4">
+        <app-input-text
+          label="Razão social"
+          [frmGroup]="formGroup"
+          frmName="razaoSocial"
+        ></app-input-text>
+      </div>
+
+      <div class="col-sm-4">
+        <app-input-text-mask
+          label="CNPJ"
+          [frmGroup]="formGroup"
+          frmName="cnpj"
+          mask="99.999.999/9999-99"
+        ></app-input-text-mask>
+      </div>
+      <div class="col-sm-4">
+        <app-input-text-mask
+          label="Telefone"
+          [frmGroup]="formGroup"
+          frmName="telefone"
+          [mask]="'(99) 9 9999-9999'"
+        ></app-input-text-mask>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="flex flex-col gap-2">
+          <label>&nbsp;</label>
+          <p-selectbutton
+            formControlName="situacao"
+            [options]="options"
+            optionValue="value"
+            (onChange)="onChangeSituacao()"
+          />
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <app-input-date
+          label="Data baixa"
+          [frmGroup]="formGroup"
+          frmName="dataBaixa"
+        >
+        </app-input-date>
+      </div>
+
+      <p-button severity="info" (click)="onSalvar()"> Salvar</p-button>
+    </div>
+  </p-card>
+</div>

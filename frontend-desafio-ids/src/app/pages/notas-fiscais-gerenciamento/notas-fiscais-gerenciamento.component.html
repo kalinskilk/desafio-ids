@@ -1,0 +1,135 @@
+<div class="main-container">
+  <p-toolbar>
+    <ng-template #start>
+      <p-button
+        icon="pi pi-arrow-left"
+        class="mr-2"
+        text
+        severity="secondary"
+        routerLink="/home"
+      />
+    </ng-template>
+    <ng-template #center>
+      <p-iconfield iconPosition="left">
+        <p-inputicon styleClass="pi pi-search" />
+        <input
+          type="text"
+          pInputText
+          placeholder="Search"
+          (keyup)="onSearch()"
+          [(ngModel)]="search"
+        />
+      </p-iconfield>
+    </ng-template>
+    <ng-template #end>
+      <p-button severity="primary" (click)="onNew()" [outlined]="true">
+        <i class="pi pi-plus"></i>
+        Cadastrar nova nota fiscal
+      </p-button>
+    </ng-template>
+  </p-toolbar>
+  <p-card>
+    <ng-template #title>Gerenciamento de notas fiscais </ng-template>
+    <ng-template #subtitle>Inclua, edite ou exclua notas fiscais</ng-template>
+
+    <p-table
+      #table
+      [value]="list"
+      [paginator]="true"
+      [rows]="5"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      size="small"
+      [styleClass]="'p-datatable-sm'"
+      scrollHeight="450px"
+      [sortOrder]="1"
+      [resizableColumns]="true"
+      columnResizeMode="expand"
+      [globalFilterFields]="[
+        'numeroNota',
+        'dataEmissao',
+        'idFornecedor',
+        'valorTotal',
+        'razaoSocial',
+      ]"
+    >
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="numeroNota" pResizableColumn>
+            Número <p-sortIcon field="numeroNota" />
+          </th>
+          <th pSortableColumn="dataEmissao" pResizableColumn>
+            Data da emissão <p-sortIcon field="dataEmissao" />
+          </th>
+          <th pSortableColumn="valorTotal" pResizableColumn>
+            Valor <p-sortIcon field="valorTotal" />
+          </th>
+          <th pSortableColumn="idFornecedor" pResizableColumn>
+            Fornecedor <p-sortIcon field="idFornecedor" />
+          </th>
+          <th style="width: 5%">Editar</th>
+          <th style="width: 5%">Excluir</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-obj>
+        <tr>
+          <td>{{ obj.numeroNota }}</td>
+          <td>{{ obj.dataEmissao | date: "dd/MM/yyyy" }}</td>
+          <td>
+            {{ obj.valorTotal | currency: "BRL" }}
+          </td>
+          <td>{{ obj.idFornecedor }}-{{ obj.razaoSocial }}</td>
+          <td>
+            <p-button
+              severity="info"
+              (click)="onEdit(obj.idNotasFiscais)"
+              [outlined]="true"
+            >
+              <i class="pi pi-pencil"></i
+            ></p-button>
+          </td>
+          <td>
+            <p-button
+              severity="danger"
+              (click)="onDelete($event, obj.idNotasFiscais)"
+              [outlined]="true"
+            >
+              <i class="pi pi-trash"></i
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <ng-container *ngIf="loading">
+          <tr *ngFor="let obj of arraySkeleton" style="height: 46px">
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+            <td>
+              <p-skeleton [ngStyle]="{ width: '100%' }" />
+            </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="!loading">
+          <tr>
+            <td colspan="5">Nenum registro encontrado.</td>
+          </tr>
+        </ng-container>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+  <p-confirmdialog />
+</div>
