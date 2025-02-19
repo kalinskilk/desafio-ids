@@ -88,6 +88,7 @@ export class FornecedoresGerenciamentoComponent {
 
   findAll() {
     this.loading = true;
+    this.list = [];
     this.fornecedoresGerenciamentoService
       .listFornecedores(this.situacao)
       .pipe(
@@ -133,6 +134,5 @@ export class FornecedoresGerenciamentoComponent {
 
   onChangeSituacao() {
     this.findAll();
-    console.log(this.situacao);
   }
 }

@@ -84,6 +84,13 @@ export class FornecedoresEdicaoComponent {
       this.toastService.showError(ERRO_CAMPOS_OBRIGATORIOS);
       return;
     }
+    if (
+      this.formGroup.controls['situacao'].value === 'Baixado' &&
+      !this.formGroup.controls['dataBaixa'].value
+    ) {
+      this.toastService.showError('Campo data da baixa deve ser preenchido.');
+      return;
+    }
     const obj = {
       ...this.formGroup.value,
       dataBaixa: this.formGroup.controls['dataBaixa'].value,
@@ -109,8 +116,9 @@ export class FornecedoresEdicaoComponent {
           this.formGroup.controls['dataBaixa'].disable();
         } else {
           this.formGroup.controls['dataBaixa'].enable();
+
           this.formGroup.controls['dataBaixa'].setValue(
-            new Date(result.dataBaixa),
+            new Date(`${result.dataBaixa} 00:00:00`),
           );
         }
       });

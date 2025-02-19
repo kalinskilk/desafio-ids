@@ -9,6 +9,7 @@ import {
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
 import { ToolbarModule } from 'primeng/toolbar';
 import { first, forkJoin } from 'rxjs';
 import { InputCurrencyComponent } from '../../core/components/input-currency/input-currency.component';
@@ -45,6 +46,7 @@ import { TableItensComponent } from './table-itens/table-itens.component';
     InputDateComponent,
     InputSelectComponent,
     TableItensComponent,
+    DividerModule,
   ],
   templateUrl: './notas-fiscais-edicao.component.html',
   styleUrl: './notas-fiscais-edicao.component.scss',
@@ -111,6 +113,10 @@ export class NotasFiscaisEdicaoComponent {
 
           this.itens = nota.itens;
           this.formGroup.patchValue(nota);
+
+          this.formGroup.controls['dataEmissao'].setValue(
+            new Date(`${nota.dataEmissao} 00:00:00`),
+          );
         }
       });
   }
@@ -122,7 +128,6 @@ export class NotasFiscaisEdicaoComponent {
     }
     for (const item of this.itens) {
       if (!item.quantidade || !item.idProdutos || !item.valorUnitario) {
-        this.toastService.showError('Um dos itens está invalido verifique!');
         throw new Error('Um dos itens está invalido verifique!');
       }
     }

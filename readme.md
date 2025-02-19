@@ -75,3 +75,73 @@ Para listar os IDs dos containers ativos:
 ```sh
 docker ps
 ```
+
+# Sobre o desafio
+
+## Tecnologias a serem utilizadas
+
+- **Front-End**: Angular + PrimeNG
+- **Back-End**: API Java Nativo + Quarkus
+- **Banco de Dados**: PostgreSQL
+- **Documentação da API**: Swagger (Obrigatório)
+- **Diferencial (não obrigatório)**: Testes unitários no backend
+
+## Observação
+
+Não utilizar frameworks Java como Spring ou qualquer outro.
+
+# Tasklist
+
+## Cadastro de Produto
+
+- ✅ Criar campo para **Código**
+- ✅ Criar campo para **Descrição**
+- ✅ Criar campo para **Situação** (Ativo, Inativo)
+- ✅ Implementar funcionalidade para **pesquisar produtos**
+- ✅ Permitir **Inclusão** de produtos
+- ✅ Permitir **Edição** de produtos
+- ✅ Permitir **Exclusão** de produtos
+- ✅ Validar exclusão: **Não permitir excluir um produto que já teve movimentação**
+
+## Cadastro de Fornecedor
+
+- ✅ Criar campo para **Código**
+- ✅ Criar campo para **Razão Social**
+- ✅ Criar campo para **E-Mail**
+- ✅ Criar campo para **Telefone**
+- ✅ Criar campo para **CNPJ**
+- ✅ Criar campo para **Situação** (Ativo, Baixado, Suspenso)
+- ✅ Criar campo para **Data da Baixa**
+- ✅ Implementar funcionalidade para **pesquisar fornecedores**
+- ✅ Permitir **Inclusão** de fornecedores
+- ✅ Permitir **Edição** de fornecedores
+- ✅ Permitir **Exclusão** de fornecedores
+- ✅ Validar CNPJ: **Não permitir mais de um fornecedor com o mesmo CNPJ**
+- ✅ Validar exclusão: **Não permitir excluir fornecedor que já teve movimentação**
+
+## Entrada de Nota Fiscal
+
+### Informações da Nota
+
+- ✅ Criar campo para **Número da nota**
+- ✅ Criar campo para **Data e Horário de Emissão**
+- ✅ Criar campo para **Fornecedor**
+- ✅ Criar campo para **Endereço**
+- ✅ Criar campo para **Valor Total da Nota**
+
+### Itens da Nota Fiscal
+
+- ✅ Criar campo para **Produto**
+- ✅ Criar campo para **Valor Unitário**
+- ✅ Criar campo para **Quantidade**
+- ✅ Calcular e exibir **Valor Total do Item** (quantidade x valor unitário)
+
+### Funcionalidades
+
+- ✅ Implementar funcionalidade para **pesquisar notas fiscais**
+- ✅ Permitir **Inclusão** de notas fiscais
+- ✅ Permitir **Edição** de notas fiscais
+- ✅ Permitir **Exclusão** de notas fiscais
+- ✅ Permitir **Inclusão** de itens na nota fiscal
+- ✅ Permitir **Edição** de itens na nota fiscal
+- ✅ Permitir **Exclusão** de itens na nota fiscal

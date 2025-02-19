@@ -110,6 +110,7 @@ export class ProdutosGerenciamentoComponent implements OnInit, OnDestroy {
 
   findAll() {
     this.loading = true;
+    this.list = [];
     this.produtosGerenciamentoService
       .listProdutos(this.search, this.getSituacao())
       .pipe(

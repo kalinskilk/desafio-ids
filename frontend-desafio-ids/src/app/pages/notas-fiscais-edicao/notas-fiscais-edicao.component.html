@@ -52,13 +52,14 @@
         </app-input-select>
       </div>
     </div>
-    <p-card>
-      <ng-template #title>Itens da nota fiscal</ng-template>
-      <app-table-itens
-        [produtos]="listProdutos"
-        [itens]="itens"
-      ></app-table-itens>
-    </p-card>
+
+    <h4>Itens da nota fiscal</h4>
+    <app-table-itens
+      [produtos]="listProdutos"
+      [itens]="itens"
+    ></app-table-itens>
+    <p-divider />
+    <br />
 
     <p-button severity="info" (click)="onSalvar()"> Salvar</p-button>
   </p-card>
